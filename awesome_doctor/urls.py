@@ -1,0 +1,30 @@
+"""awesome_doctor URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/3.0/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.contrib import admin
+from django.urls import path, include, re_path
+from django.views.generic import RedirectView
+
+from awesome_doctor import views
+
+urlpatterns = [
+    re_path(r'^dr/login/$', views.LoginView.as_view(), name='login'),
+    re_path(r'^dr/$', views.DoctorMain.as_view(), name='login'),
+    re_path('^public/', views.PatientAppointment.as_view(), name='appointment'),
+    path('api/appointments/', views.get_appointments),
+    path('api/appointments_create/', views.create_appointment),
+    path('', RedirectView.as_view(url='public/appointment')),
+    path('', include('social_django.urls', namespace='social')),
+]
