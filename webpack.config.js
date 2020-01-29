@@ -1,9 +1,11 @@
 //require our dependencies
-var path = require('path')
-var webpack = require('webpack')
-var BundleTracker = require('webpack-bundle-tracker')
+var path = require('path');
+var webpack = require('webpack');
+var BundleTracker = require('webpack-bundle-tracker');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
+    mode: 'production',
     context: __dirname,
     entry: './assets/js/index',
     output: {
@@ -47,5 +49,15 @@ module.exports = {
     resolve: {
         modules: ['node_modules'],
         extensions: ['.js', '.jsx', '.ts', '.tsx']
+    },
+
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new TerserPlugin({
+                cache: true,
+                parallel: true,
+            }),
+        ]
     }
-}
+};

@@ -53,7 +53,6 @@ const AppointmentForm: React.FC<FormProps> = forwardRef<FormComponentProps, Form
                 return acc;
             }, {});
             setBusyHoursDict(hoursDict);
-            console.log(hoursDict);
         }, () => {
             notification.error({message: 'Fetching appointments error'})
         });

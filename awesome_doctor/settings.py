@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import environ
+env = environ.Env()
+# reading .env file
+environ.Env.read_env(env_file='.env')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -129,8 +133,8 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-SOCIAL_AUTH_DRCHRONO_KEY = os.getenv('SOCIAL_AUTH_CLIENT_ID') or 'qNGta964y0Nk0fszGHJwt1QJz2Y565moPpq8Llur'
-SOCIAL_AUTH_DRCHRONO_SECRET = os.getenv('SOCIAL_AUTH_SECRET') or 'KgZt2Tu7GAB1z3iCUQzOMjryUxm8XL9vM5NqJrPIeMBElEQnJKUVkQDUfGWWyEuqriCV7Fgq7eaFzW5tGYct3xEhmCjypJk6VqpiY8nKITno6LgdBXuzLaRQbuq89iAB'
+SOCIAL_AUTH_DRCHRONO_KEY = env('SOCIAL_AUTH_CLIENT_ID')
+SOCIAL_AUTH_DRCHRONO_SECRET = env('SOCIAL_AUTH_CLIENT_SECRET')
 LOGIN_REDIRECT_URL = '/dr'
 LOGIN_URL = '/dr/login'
 
